@@ -8,19 +8,37 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
-import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 public class Contacto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	private Integer id;
+	
+	@NotBlank(message = "Debe ingresar un nombre")
 	private String name;
+	
+	@NotEmpty(message = "Debe ingresar su email")
+	@Email
 	private String email;
+	
+	@NotBlank (message = "Debe ingresar su celular")
 	private String phoneNumber;
+	
+	@DateTimeFormat	(iso = ISO.DATE)
+	@Past
+	@NotNull(message = "Debe ingresar su fecha de nacimiento")
 	private LocalDate birthDate;
+	
 	private LocalDateTime registerDate;
 
 	public Integer getId() {
