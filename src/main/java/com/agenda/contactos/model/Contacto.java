@@ -1,11 +1,13 @@
 package com.agenda.contactos.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 @Entity
@@ -19,7 +21,7 @@ public class Contacto {
 	private String email;
 	private String phoneNumber;
 	private LocalDate birthDate;
-	private LocalDate registerDate;
+	private LocalDateTime registerDate;
 
 	public Integer getId() {
 		return id;
@@ -61,16 +63,21 @@ public class Contacto {
 		this.birthDate = birthDate;
 	}
 
-	public LocalDate getRegisterDate() {
+	public LocalDateTime getRegisterDate() {
 		return registerDate;
 	}
 
-	public void setRegisterDate(LocalDate registerDate) {
+	public void setRegisterDate(LocalDateTime registerDate) {
 		this.registerDate = registerDate;
+	}
+	
+	@PrePersist
+	public void addRegisterDate() {
+		registerDate = LocalDateTime.now();
 	}
 
 	public Contacto(Integer id, String name, String email, String phoneNumber, String birth, LocalDate birthDate,
-			LocalDate registerDate) {
+			LocalDateTime registerDate) {
 		super();
 		this.id = id;
 		this.name = name;

@@ -6,6 +6,31 @@
 </head>
 <body>
 
+	<div th:if="${msgExito != null}">[[${msgExito}]]</div>
+
 	<h1>Lista de contactos</h1>
-	<a href="/nuevo">Añadir contacto</a>
+	<a href="/new">Añadir contacto</a>
+
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Nombre</th>
+				<th>Celular</th>
+				<th>Email</th>
+				<th>F.Nacimiento</th>
+				<th>F.Registro</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="contacto: ${contactos}">
+				<td th:text="${contacto.id}"></td>
+				<td th:text="${contacto.name}"></td>
+				<td th:text="${contacto.phoneNumber}"></td>
+				<td th:text="${contacto.email}"></td>
+				<td th:text="${contacto.birthDate}"></td>
+				<td th:text="${contacto.registerDate}"></td>
+			</tr>
+		</tbody>
+	</table>
 </html>

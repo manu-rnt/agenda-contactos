@@ -12,25 +12,29 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.agenda.contactos.model.Contacto;
 import com.agenda.contactos.repository.ContactoRepository;
 
+import java.util.List;
+
 @Controller
 public class ContactoController {
 	
 	@Autowired
 	ContactoRepository contactoRepository;
 
-	@GetMapping({ "/", "" })
+	@GetMapping({"/",""})
 
-	public String verPaginaDeInicio() {
+	public String showIndexPage(Model model) {
+		List<Contacto> contactos = contactoRepository.findAll();
+		model.addAttribute("contactos", contactos);
 		return "index";
 	}
 	
-	@GetMapping("/nuevo")
+	@GetMapping("/new")
 	public String showRegisterContactForm (Model model) {
 		model.addAttribute("contacto", new Contacto());
-		return "nuevo";
+		return "new";
 	}
 	
-	@PostMapping("/nuevo")
+	@PostMapping("/new")
 	public String saveContact(Contacto contacto, RedirectAttributes redirect) {
 		contactoRepository.save(contacto);
 		redirect.addFlashAttribute("msgExito", "El contacto ha sido agregado con exito");
