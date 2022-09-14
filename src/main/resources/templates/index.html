@@ -3,36 +3,70 @@
 <head>
 <meta charset="utf-8">
 <title>Lista de conactos</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous"> 
+	<!-- Boxicon -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 </head>
 <body>
 
-	<div th:if="${msgExito != null}">[[${msgExito}]]</div>
+	<div class="container">
+		<div th:if="${msgExito != null}"
+			class="alert alert-success alert-dismissible">
+			[[${msgExito}]]
+			<button type="button" class="btn btn-close" data-bs-dismiss="alert"></button>
+		</div>
 
-	<h1>Lista de contactos</h1>
-	<a href="/new">Añadir contacto</a>
+		<h1>Lista de contactos</h1>
+		<div class="text-center my-3">
+			<a href="/new" class="btn btn-primary"> <i class='bx bxs-user-plus' ></i></i>Añadir contacto</a>
+		</div>
 
-	<table>
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>Nombre</th>
-				<th>Celular</th>
-				<th>Email</th>
-				<th>F.Nacimiento</th>
-				<th>F.Registro</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="contacto: ${contactos}">
-				<td th:text="${contacto.id}"></td>
-				<td th:text="${contacto.name}"></td>
-				<td th:text="${contacto.phoneNumber}"></td>
-				<td th:text="${contacto.email}"></td>
-				<td th:text="${#temporals.format(contacto.birthDate, 'dd/MM/YYYY')}"></td>
-				<td th:text="${#temporals.format(contacto.registerDate, 'dd/MM/YYYY hh:mm a')}"></td>
-			</tr>
-		</tbody>
-	</table>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Nombre</th>
+					<th>Celular</th>
+					<th>Email</th>
+					<th>F.Nacimiento</th>
+					<th>F.Registro</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="contacto: ${contactos}">
+					<td th:text="${contacto.id}"></td>
+					<td th:text="${contacto.name}"></td>
+					<td th:text="${contacto.phoneNumber}"></td>
+					<td th:text="${contacto.email}"></td>
+					<td
+						th:text="${#temporals.format(contacto.birthDate, 'dd/MM/YYYY')}"></td>
+					<td
+						th:text="${#temporals.format(contacto.registerDate, 'dd/MM/YYYY hh:mm a')}"></td>
+					<td><a th:href="@{/{id}/edit/(id=${contacto.id})}" class="btn btn-warning"><i class='bx bxs-edit' undefined ></i>Editar</a>
+						<a href="#" onclick="deleteContacto(this)" class="btn btn-danger"><i class='bx bx-trash' style='color:#ffffff' ></i>Eliminar</a>
+						<form th:action="@{/{id}/delete/(id=${contacto.id})}"
+							method="post"></form></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
+	<script>
+	
+		function deleteContacto(elemento) {
+		 var ok = confirm('Esta seguro que desea eliminar al contacto?');
+		 
+		 if (ok) {
+		 elemento.nextElementSibling.submit();
+		 }
+		}
+	</script>
 </html>

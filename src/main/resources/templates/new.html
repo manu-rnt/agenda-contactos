@@ -8,42 +8,44 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
+	<!-- Boxicon -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 </head>
 <body>
 
 	<div class="row justify-content-center">
 		<div class="col-md6 col-lg-4">
-			<h3>Registro de contacto</h3>
+			<h3>[[${contacto.id ne null ? 'Editar contacto' : 'Registro de contacto'}]]</h3>
 			<br>
 			<form action="" method="post" th:object="${contacto}">
-				<div>
+				<div class="mb-3">
 					<label for="name">Nombre :</label> <input id="name" type="text"
 						placeholder="Digite su nombre" th:field="*{name}" class="form-control" th:errorClass="is-invalid">
 
 					<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid-feedback"></div>
 				</div>
-				<div>
+				<div class="mb-3">
 					<label for="phoneNumber">Celular :</label> <input id="phoneNumber"
 						type="text" placeholder="Digite su celular"
 						th:field="*{phoneNumber}" class="form-control" th:errorClass="is-invalid"> 
 
 					<div th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="invalid-feedback"></div>
 				</div>
-				<div>
+				<div class="mb-3">
 					<label for="email">Email :</label> <input id="email" type="email"
 						placeholder="Digite su email" th:field="*{email}" class="form-control" th:errorClass="is-invalid">
 
 					<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="invalid-feedback"></div>
 				</div>
-				<div>
+				<div class="mb-3">
 					<label for="brithDate">Fecha nacimiento :</label> <input
 						id="brithDate" type="date" th:field="*{birthDate}" class="form-control" th:errorClass="is-invalid">
 
 					<div th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}" class="invalid-feedback"></div>
 				</div>
 				<div class="text-end">
-					<button class="btn btn-success">Guardar</button>
-					<a href="/" class="btn btn-light ms-2"> Cancelar </a>
+					<button class="btn btn-success"> <i class='bx bxs-save' style='color:#ffffff' ></i>Guardar</button>
+					<a href="/" class="btn btn-light ms-2"><i class='bx bx-skip-previous' undefined ></i></i> Cancelar </a>
 				</div>
 				
 			</form>
